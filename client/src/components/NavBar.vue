@@ -33,7 +33,7 @@ export default {
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">SEWA LAHAN PARKIR</a>
+      <a class="navbar-brand" href="#" @click.prevent="clickPost">SEWA LAHAN PARKIR</a>
       <button
         class="navbar-toggler"
         type="button"

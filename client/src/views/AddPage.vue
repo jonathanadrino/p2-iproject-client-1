@@ -67,7 +67,13 @@ export default {
           });
         },
         (err) => {
-          console.log(err);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: `Please allow location service`,
+            showConfirmButton: false,
+            timer: 2000,
+          });
         }
       );
     },
@@ -103,7 +109,7 @@ export default {
         // console.log(formData);
 
         const result = await axios.post(
-          "http://localhost:3000/post",
+          "https://sewa-parkir.herokuapp.com/post",
           formData,
           {
             headers: {
@@ -113,10 +119,23 @@ export default {
           }
         );
 
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `Your request has been posted`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
         console.log(result);
-        this.$router.push('/post')
+        this.$router.push("/post");
       } catch (err) {
-        console.log(err);
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `Failed to post request`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
     },
   },

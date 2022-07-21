@@ -43,7 +43,13 @@ export default {
           }
         },
         (err) => {
-          console.log(err);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: `Please allow location service`,
+            showConfirmButton: false,
+            timer: 2000,
+          });
         }
       );
     },

@@ -5,13 +5,16 @@ import TransactionCard from "../components/TransactionCard.vue";
 
 export default {
     name: "TransactionPage",
-    method: {
+    methods: {
         ...mapActions(useCounterStore, ["fetchTransactions"]),
     },
     computed: {
         ...mapState(useCounterStore, ["myTransaction"]),
     },
-    components: { TransactionCard }
+    components: { TransactionCard },
+    created() {
+        this.fetchTransactions()
+    }
 };
 </script>
 

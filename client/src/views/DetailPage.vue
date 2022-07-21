@@ -30,7 +30,7 @@ export default {
           this.lng = e.coords.longitude;
           this.center = [+e.coords.latitude, +e.coords.longitude];
           this.permitted = true;
-          let mymap = leaflet.map("map").setView([this.lat, this.lng], 17);
+          let mymap = leaflet.map("map").setView([this.post.latitude, this.post.longitude], 17);
           leaflet
             .tileLayer(
               "https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=HgdBfKWwK1kyyRLgFKDH",
@@ -55,7 +55,13 @@ export default {
               .addTo(mymap);
         },
         (err) => {
-          console.log(err);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: `Please allow location service`,
+            showConfirmButton: false,
+            timer: 2000,
+          });
         }
       );
     },

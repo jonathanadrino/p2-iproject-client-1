@@ -9,8 +9,8 @@ export const useCounterStore = defineStore({
     data: [],
     post: [],
     myPost: [],
-    paymentUrl: '',
-    myTransaction: []
+    paymentUrl: "",
+    myTransaction: [],
   }),
   getters: {
     doubleCount: (state) => state.counter * 2,
@@ -27,13 +27,27 @@ export const useCounterStore = defineStore({
           },
         });
 
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `Logged in`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+
         localStorage.setItem("access_token", result.data.access_token);
         localStorage.setItem("email", result.data.email);
         this.isLogin = true;
         this.router.push("/post");
-        this.fetchTransactions()
+        this.fetchTransactions();
       } catch (err) {
-        console.log(err);
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `Please check your input`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
     },
     async registerHandler(object) {
@@ -49,9 +63,23 @@ export const useCounterStore = defineStore({
             address: object.address,
           },
         });
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `Your account has been registered`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
         this.router.push("/login");
       } catch (err) {
-        console.log(err);
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `Please check your input`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
     },
     async fetchData() {
@@ -82,7 +110,7 @@ export const useCounterStore = defineStore({
     },
     async checkToken() {
       if (localStorage.getItem("access_token")) {
-        this.fetchTransactions()
+        this.fetchTransactions();
         this.isLogin = true;
         this.router.push("/post");
       }
@@ -91,6 +119,14 @@ export const useCounterStore = defineStore({
       localStorage.clear();
       this.isLogin = false;
       this.router.push("/post");
+
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: `Logged out`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
     },
     async rent(obj) {
       try {
@@ -108,9 +144,16 @@ export const useCounterStore = defineStore({
             },
           });
           console.log(result);
-          this.paymentUrl = result.data.url
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `Payment bill created`,
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          this.paymentUrl = result.data.url;
 
-          this.router.push('/payment')
+          this.router.push("/payment");
         }
       } catch (err) {
         console.log(err);
@@ -122,14 +165,13 @@ export const useCounterStore = defineStore({
           url: `${baseUrl}/transactions`,
           method: "GET",
           headers: {
-            access_token: localStorage.getItem('access_token')
-          }
+            access_token: localStorage.getItem("access_token"),
+          },
         });
         console.log(result);
-        console.log('masuuuk');
+        console.log("masuuuk");
 
         this.myTransaction = result.data;
-
       } catch (err) {
         console.log(err);
       }
