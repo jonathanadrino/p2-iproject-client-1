@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://sewa-parkir.herokuapp.com";
 
 export const useCounterStore = defineStore({
   id: "counter",
